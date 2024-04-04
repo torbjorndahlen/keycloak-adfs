@@ -1,0 +1,25 @@
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: Keycloak
+metadata:
+  name: keycloak
+spec:
+  instances: 1
+  db:
+    vendor: postgres
+    host: postgresql
+    usernameSecret:
+      name: keycloak-db-secret
+      key: username
+    passwordSecret:
+      name: keycloak-db-secret
+      key: password
+  http:
+    tlsSecret: keycloak-tls-secret
+  hostname:
+    hostname: rhbk-keycloak.apps.cluster-wpg7q.dynamic.redhatworkshops.io
+  additionalOptions:
+    - name: keycloak-truststore
+      secret:
+        name: adfs-tls-secret
+        key: tls.key
+  
